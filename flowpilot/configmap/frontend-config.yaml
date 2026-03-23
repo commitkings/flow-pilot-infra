@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: flow-pilot
+data:
+  NEXT_PUBLIC_API_URL: "http://api-service.flow-pilot.svc.cluster.local:8000"
