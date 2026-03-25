@@ -4,4 +4,4 @@ metadata:
   name: frontend-config
   namespace: flow-pilot
 data:
-  NEXT_PUBLIC_API_URL: "http://api-service.flow-pilot.svc.cluster.local:8000"
+  NEXT_PUBLIC_API_URL: "http://164.68.119.226:30096"

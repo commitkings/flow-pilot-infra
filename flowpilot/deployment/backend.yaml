@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flow-pilot-backend
+  namespace: flow-pilot
+  labels:
+    app: flow-pilot-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flow-pilot-backend
+  template:
+    metadata:
+      labels:
+        app: flow-pilot-backend
+    spec:
+      containers:
+      - name: backend
+        image: 164.68.119.226:30002/flowpilot/flowpilot-backend:latest
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: backend-config
+        - secretRef:
+            name: flow-pilot-backend-secrets # Include existing app secrets
+        resources:
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+        livenessProbe:
+          httpGet:
+            path: /health/
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health/
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 5

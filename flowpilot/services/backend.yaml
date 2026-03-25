@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flow-pilot-backend
+  namespace: flow-pilot
+spec:
+  selector:
+    app: flow-pilot-backend
+  ports:
+  - protocol: TCP
+    port: 8000
+    targetPort: 8000
+    nodePort: 30096
+  type: NodePort

@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: flow-pilot
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  INTERSWITCH_BASE_URL: "https://qa.interswitchng.com"
+  INTERSWITCH_PAYOUTS_BASE_URL: "https://api.interswitchng.com"
+  INTERSWITCH_SOURCE_ACCOUNT_ID: "SRC_001"
+  INTERSWITCH_WALLET_ID: "2700010867"
+  INTERSWITCH_MERCHANT_ID: "MX272008"
+  PAYOUT_MODE: "lookup_only"
+  GROQ_LLM_MODEL: "llama-3.3-70B-versatile"
+  GOOGLE_CLIENT_ID: "240797537655-e5uclq58qlods5hofdamv8nflpp830tu.apps.googleusercontent.com"
+  GOOGLE_REDIRECT_URI: "http://164.68.119.226:30096/api/v1/auth/google/callback"
+  REDIS_HOST: "redis.flow-pilot.svc.cluster.local"
+  REDIS_PORT: "6379"
+  REDIS_DB: "10"
+  DB_USER: "avnadmin"
+  DB_NAME: "flowpilot"
+  DB_HOST: "164.68.119.226"
+  DB_PORT: "30434"
+  DATABASE_ECHO: "false"
+  DATABASE_MAX_OVERFLOW: "10"
+  DATABASE_POOL_SIZE: "5"
+  DATABASE_POOL_TIMEOUT: "30"
+  DB_SSLMODE: "prefer"
+  FRONTEND_URL: "http://164.68.119.226:30095"
+  CORS_ALLOWED_ORIGINS: "http://164.68.119.226:30095"
+  REDIS_URL: "redis://redis.flow-pilot.svc.cluster.local:6379/10"

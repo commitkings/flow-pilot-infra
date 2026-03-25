@@ -1,0 +1,75 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: backend-policy
+  namespace: flow-pilot
+spec:
+  podSelector:
+    matchLabels:
+      app: flow-pilot-backend
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: flow-pilot-frontend
+    - ipBlock:
+        cidr: 0.0.0.0/0 # Allow external access via NodePort
+    ports:
+    - protocol: TCP
+      port: 8000
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          app: redis
+    ports:
+    - protocol: TCP
+      port: 6379
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: kube-system
+      podSelector:
+        matchLabels:
+          k8s-app: kube-dns
+    ports:
+    - protocol: UDP
+      port: 53
+    - protocol: TCP
+      port: 53
+  # Allow egress to external database (standard PostgreSQL port)
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0 # User should restrict this to the actual DB host IP if possible
+    ports:
+    - protocol: TCP
+      port: 5432
+  # Allow egress to Infisical API
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          kubernetes.io/metadata.name: infisical
+    ports:
+    - protocol: TCP
+      port: 8080
+  # Allow egress to SMTP servers for email
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 25
+    - protocol: TCP
+      port: 465
+    - protocol: TCP
+      port: 587
+  # Allow egress to external HTTPS APIs (Groq, Interswitch, Google, etc.)
+  - to:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 443
