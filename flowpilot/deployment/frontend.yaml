@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: 164.68.119.226:30002/flowpilot/flowpilot-frontend:1.0.2
+        image: 164.68.119.226:30002/flowpilot/flowpilot-frontend:1.0.3
         ports:
         - containerPort: 3000
         envFrom:
