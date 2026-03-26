@@ -19,7 +19,7 @@ spec:
       - name: harbor-registry-secret
       containers:
       - name: backend
-        image: 164.68.119.226:30002/flowpilot/flowpilot-backend:1.0.22
+        image: 164.68.119.226:30002/flowpilot/flowpilot-backend:1.0.23
         ports:
         - containerPort: 8000
         envFrom:
