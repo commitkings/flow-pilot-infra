@@ -19,7 +19,7 @@ spec:
       - name: harbor-registry-secret
       containers:
       - name: frontend
-        image: 164.68.119.226:30002/flowpilot/flowpilot-frontend:1.0.15
+        image: 164.68.119.226:30002/flowpilot/flowpilot-frontend:1.0.16
         ports:
         - containerPort: 3000
         envFrom:
