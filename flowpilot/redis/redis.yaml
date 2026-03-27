@@ -7,6 +7,8 @@ metadata:
     app: redis
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: redis
@@ -18,6 +20,7 @@ spec:
       containers:
       - name: redis
         image: redis:7-alpine
+        command: ["redis-server", "--save", "60", "1", "--appendonly", "yes"]
         ports:
         - containerPort: 6379
         resources:
@@ -27,6 +30,25 @@ spec:
           requests:
             cpu: "100m"
             memory: "128Mi"
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      volumes:
+      - name: redis-storage
+        persistentVolumeClaim:
+          claimName: redis-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: redis-pvc
+  namespace: flow-pilot
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
 ---
 apiVersion: v1
 kind: Service
