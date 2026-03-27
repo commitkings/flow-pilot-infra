@@ -3,10 +3,11 @@
 
 [![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
 [![Argo CD](https://img.shields.io/badge/Argo%20CD-EF7B4D?style=for-the-badge&logo=argocd&logoColor=white)](https://argoproj.github.io/cd/)
+[![Harbour](https://img.shields.io/badge/Harbor-7ED321?style=for-the-badge&logo=harbor&logoColor=white)](https://goharbor.io/)
 [![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)](https://redis.io/)
 [![External Secrets](https://img.shields.io/badge/External%20Secrets-5C4EE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://external-secrets.io/)
 
-This repository contains the **Production-Ready Kubernetes Infrastructure** for **FlowPilot**—a high-performance, AI-driven fintech orchestration platform built for a hackathon.
+This repository contains the **Production-Ready Kubernetes Infrastructure** for **FlowPilot**—a high-performance, AI-driven fintech orchestration platform built for interswitch hackathon.
 
 ##  Overview
 
@@ -14,10 +15,12 @@ FlowPilot Infrastructure is designed with a **security-first, scalable, and clou
 
 ### Key Components:
 - **GitOps with Argo CD:** Fully automated deployments using pull-based synchronization.
+
 - **Frontend:** Next.js application served via NodePort (Optimized for performance).
 - **Backend:** FastAPI/Python application integrated with Groq LLMs and Interswitch.
 - **Cache Layer:** Scalable Redis deployment for session management and task queuing.
 - **Secrets Management:** Automated synchronization using `ExternalSecrets` and `SecretStore`.
+- **Registry:** Fully private images stored in a secure Harbour registry.
 - **Security:** Granular `NetworkPolicies` for backend/frontend isolation.
 
 ---
@@ -28,11 +31,17 @@ FlowPilot Infrastructure is designed with a **security-first, scalable, and clou
 | :--- | :--- |
 | **Orchestration** | Kubernetes (k8s) |
 | **GitOps / CD** | Argo CD |
+| **Container Registry** | Harbour |
 | **Secrets Engine** | Infisical / External Secrets Operator |
 | **Database/Cache** | Redis |
 | **Integrations** | Interswitch, Groq (LLAMA 3.3), Google OAuth |
 | **Networking** | NodePort, Kubernetes Services |
 | **Security** | K8s NetworkPolicies, ResourceQuotas |
+
+###  Secure Artifact Storage
+To maintain a high security posture, all container images for **FlowPilot** (Frontend & Backend) are hosted in a **Private Harbour Registry**. This ensures that our software supply chain is protected and images are only pulled from a trusted source.
+
+![Harbour Registry](images/harbour.png)
 
 ---
 
@@ -81,6 +90,11 @@ flowpilot/
    - **Namespace:** `flow-pilot`
    - **Automated Sync:** Enabled (Recommended)
    - **Prune Resources:** Enabled
+
+###  Live Cluster Synchronization
+Below is the live status of the **FlowPilot** infrastructure within Argo CD. This dashboard provides a real-time view of our automated GitOps workflow, ensuring the cluster state perfectly matches this repository.
+
+![Argo CD Dashboard](images/argo-cd.png)
 
 ---
 
