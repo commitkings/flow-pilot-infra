@@ -5,3 +5,4 @@ metadata:
   namespace: flow-pilot
 data:
   NEXT_PUBLIC_API_URL: "https://api.flowpilot.club/api/v1"
+  BACKEND_URL: "http://flow-pilot-backend.flow-pilot.svc.cluster.local:8000"
